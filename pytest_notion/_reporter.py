@@ -8,7 +8,7 @@ logger = getLogger(__name__)
 
 
 class NotionReporter(object):
-    def __init__(self, token, cycle_url, execution_url, test_url):
+    def __init__(self, token, cycle_url, test_url):
         logger.info('Inside NotionReporter')
         self.notion = NotionClient(token_v2=token)
         self.cycles = self.notion.get_collection_view(cycle_url)
@@ -42,17 +42,24 @@ class NotionReporter(object):
         if report.when == 'call':
             test_execution = self.test_executions.collection.add_row(
                 icon='🔫',
-                name=report.user_properties[0].title,
+                name=report.nodeid,
                 date_executed=NotionDate(datetime.now()),
-                test_case=report.user_properties[0].id,
-                # test_cycle=self.cycle.id,
                 executed_by=self.notion.current_user
             )
+            if report.user_properties:
+                test_execution.name = report.user_properties[0].title
+                test_execution.test_case = report.user_properties[0].id
             if report.passed:
                 test_execution.status = 'Passed'
             if report.failed:
                 test_execution.status = 'Failed'
                 test_execution.notes = report.longreprtext
+
+    def pytest_terminal_summary(self, terminalreporter, exitstatus, config):
+        if exitstatus == 0:
+            self.cycle.execution_status = 'Passed'
+        if exitstatus == 1:
+            self.cycle.execution_status = 'Failed'
 
     def get_test_execution_schema(self):
         return {

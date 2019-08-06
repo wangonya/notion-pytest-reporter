@@ -20,14 +20,6 @@ def pytest_addoption(parser):
         help='URL for the Test Cycle Collection'
     )
     group.addoption(
-        '--test-execution-url',
-        dest='notion_test_execution_url',
-        action='store',
-        type=str,
-        default='https://www.notion.so/colinwren/ea4dcd1449c24d208660f0722f4ce69d?v=a68818ddb1b845b9bff71729fd54746c',
-        help='URL for the Test Execution Collection'
-    )
-    group.addoption(
         '--test-case-url',
         dest='notion_test_case_url',
         action='store',
@@ -40,13 +32,11 @@ def pytest_addoption(parser):
 def pytest_configure(config):
     token = config.option.notion_token
     cycle_url = config.option.notion_test_cycle_url
-    execution_url = config.option.notion_test_execution_url
     case_url = config.option.notion_test_case_url
     config.addinivalue_line('markers', 'notion_test(name): Name of test case')
-    # if token:
-    config._notion_reporter = \
-        NotionReporter(token, cycle_url, execution_url, case_url)
-    config.pluginmanager.register(config._notion_reporter)
+    if token:
+        config._notion_reporter = NotionReporter(token, cycle_url, case_url)
+        config.pluginmanager.register(config._notion_reporter)
 
 
 def pytest_unconfigure(config):
