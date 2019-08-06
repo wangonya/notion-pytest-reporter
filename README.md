@@ -2,9 +2,18 @@
 A PyTest Reporter to send test runs to Notion.so and enable bi-directional 
 traceability.
 
+![Example Test Cycle Report](images/test-cycle.png)
+Test Cycle Report - Shows Test Execution Results from run
+
+![Example Test Execution](images/test-execution.png)
+Test Execution - Shows Stack trace if failed
+
+![Example Test Case](images/test-case.png)
+Test Case - Shows Test Executions
+
 ## How it works
 `notion-pytest-reporter` uses the unofficial Notion API to create new items in
-the Test Cycle collection template found here: [Test Cycle Template](http://colinwren.is/awesome)
+the Test collection templates found here: [Test Cycle Template](http://colinwren.is/awesome)
 
 For every test run `notion-pytest-reporter` will create a new Test Cycle and
 within the Test Cycle create a Test Execution.
@@ -27,8 +36,10 @@ The reporter takes the following arguments:
 | `--notion_token`      | API token used to authenticate with Notion |
 | `--test-cycle-url`    | URL of the Test Cycle collection           |
 | `--test-case-url`     | URL of the Test Case collection            |
+| `--test-execution-url`| URL of the Test Execution collection       |
+| `--test-cycle-name`   | Name to use for the Test Cycle             |
 
-All arguments are required for the reporter to run.
+All arguments execpt `--test-cycle-name` are required for the reporter to run.
 
 ### Getting the Authentication Token and collections URLS
 In order to get the authentication token used by the test reporter
@@ -46,14 +57,5 @@ get the URL for the Test Cycle collection.
 Right click the Test Cases page in the side navigation and select `Copy Link` to
 get the URL for the Test Cases collection.
 
-### Expected properties for Test Cycle
-In order for the reporter to function it's expected you're using the 
-Notion template for the Test Cycle collection here: [Test Cycle Template](http://colinwren.is/awesome)
-
-But if you've modified them the following properties need to be available
-for the test reporter to work.
-
-- Icon
-- Name
-- Date Executed
-- Execution Status (`Unexecuted`, `Passed`, `Failed`)
+Right click the Test Executions page in the side navigation and select `Copy Link` to
+get the URL for the Test Executions collection.

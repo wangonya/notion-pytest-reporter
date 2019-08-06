@@ -1,4 +1,5 @@
 from ._reporter import NotionReporter
+from datetime import datetime
 
 
 def pytest_addoption(parser):
@@ -16,7 +17,7 @@ def pytest_addoption(parser):
         dest='notion_test_cycle_url',
         action='store',
         type=str,
-        default='https://www.notion.so/colinwren/2a6e31c00aba43c0bcc55c02e8000c7b?v=d976804b8225424caf4402091c571452',
+        default=None,
         help='URL for the Test Cycle Collection'
     )
     group.addoption(
@@ -24,8 +25,24 @@ def pytest_addoption(parser):
         dest='notion_test_case_url',
         action='store',
         type=str,
-        default='https://www.notion.so/colinwren/a742ec336cfd4dc3b9ca0491849fba6e?v=c30c7b81c1e3489f8e5f8cd799ec5f22',
+        default=None,
         help='URL for the Test Case Collection'
+    )
+    group.addoption(
+        '--test-execution-url',
+        dest='notion_test_execution_url',
+        action='store',
+        type=str,
+        default=None,
+        help='URL for the Test Execution Collection'
+    )
+    group.addoption(
+        '--test-cycle-name',
+        dest='notion_test_cycle_name',
+        action='store',
+        type=str,
+        default='PyTest - {0}'.format(datetime.now().strftime('%Y-%m-%d')),
+        help='Name to use for the test cycle'
     )
 
 
@@ -33,9 +50,11 @@ def pytest_configure(config):
     token = config.option.notion_token
     cycle_url = config.option.notion_test_cycle_url
     case_url = config.option.notion_test_case_url
+    execution_url = config.option.notion_test_execution_url
+    cycle_name = config.option.notion_test_cycle_name
     config.addinivalue_line('markers', 'notion_test(name): Name of test case')
-    if token:
-        config._notion_reporter = NotionReporter(token, cycle_url, case_url)
+    if token and cycle_url and case_url and execution_url:
+        config._notion_reporter = NotionReporter(token, cycle_url, case_url, execution_url, cycle_name)
         config.pluginmanager.register(config._notion_reporter)
 
 
