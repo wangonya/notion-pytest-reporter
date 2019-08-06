@@ -13,7 +13,7 @@ Test Case - Shows Test Executions
 
 ## How it works
 `notion-pytest-reporter` uses the unofficial Notion API to create new items in
-the Test collection templates found here: [Test Cycle Template](http://colinwren.is/awesome)
+the Test collection templates found here: [Test Report Template](https://www.notion.so/colinwren/Test-Reports-4415da888bf84457af49f18e9d25e62b)
 
 For every test run `notion-pytest-reporter` will create a new Test Cycle and
 within the Test Cycle create a Test Execution.
