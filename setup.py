@@ -12,6 +12,7 @@ setup(
     author_email=__email__,
     description=__description__,
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.md')).read(),
+    long_description_content_type="text/markdown",
     license=__license__,
     url=__url__,
     keywords=__keywords__,
