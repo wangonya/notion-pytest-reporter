@@ -37,7 +37,8 @@ setup(
     packages=find_packages(exclude=['tests*']),
     install_requires=[
         'pytest>=3.6',
-        'six>=1.0.0'
+        'six>=1.0.0',
+        'notion>=0.0.23'
     ],
     extras_require={
         'test': [

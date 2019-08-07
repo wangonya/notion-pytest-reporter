@@ -2,13 +2,13 @@
 A PyTest Reporter to send test runs to Notion.so and enable bi-directional 
 traceability.
 
-![Example Test Cycle Report](images/test-cycle.png)
+![Example Test Cycle Report](https://github.com/Gimpneek/notion-pytest-reporter/raw/master/images/test-cycle.png)
 Test Cycle Report - Shows Test Execution Results from run
 
-![Example Test Execution](images/test-execution.png)
+![Example Test Execution](https://github.com/Gimpneek/notion-pytest-reporter/raw/master/images/test-execution.png)
 Test Execution - Shows Stack trace if failed
 
-![Example Test Case](images/test-case.png)
+![Example Test Case](https://github.com/Gimpneek/notion-pytest-reporter/raw/master/images/test-case.png)
 Test Case - Shows Test Executions
 
 ## How it works
@@ -33,7 +33,7 @@ The reporter takes the following arguments:
 
 | Argument              | Description                                |
 |-----------------------|--------------------------------------------|
-| `--notion_token`      | API token used to authenticate with Notion |
+| `--notion-token`      | API token used to authenticate with Notion |
 | `--test-cycle-url`    | URL of the Test Cycle collection           |
 | `--test-case-url`     | URL of the Test Case collection            |
 | `--test-execution-url`| URL of the Test Execution collection       |
